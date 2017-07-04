@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Family\'s Daily</string>
+
+    <!--Login & Register-->
+    <string name="etEmail_hint">Email</string>
+    <string name="etPwd_hint">Password</string>
+
+    <!--Login-->
+    <string name="btnLogin_text">Login</string>
+    <string name="goToReg_text"><u>Don\'t have account? Register now.</u></string>
+
+    <!--fbLogin-->
+    <string name="facebook_app_id">127165354540034</string>
+    <string name="fb_login_protocol_scheme">fb127165354540034</string>
+
+    <!--Register-->
+    <string name="btnRegister_text">Register</string>
+    <string name="etPwdConf_hint">Re-type Your Password</string>
+    <string name="etFName_hint">First Name</string>
+    <string name="etLName_hint">Last Name</string>
+    <string name="etPhone_hint">Phone</string>
+    <string name="etDOB">Date of Birth</string>
+    <string name="btnVerify_text">Verify</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

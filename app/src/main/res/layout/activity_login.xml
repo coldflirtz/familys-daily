@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorPrimary">
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            tools:context="edu.bluejack16_2.familysdaily.LoginActivity"
+            >
+
+            <TextView
+                android:id="@+id/tvLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/app_name"
+                android:layout_marginTop="60dp"
+                android:textColor="@android:color/white"
+                android:textSize="35sp" />
+
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLogo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:ems="20"
+                android:hint="@string/etEmail_hint"
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/white" />
+
+            <EditText
+                android:id="@+id/etPwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/etEmail"
+                android:layout_below="@+id/etEmail"
+                android:layout_marginTop="20dp"
+                android:ems="20"
+                android:hint="@string/etPwd_hint"
+                android:inputType="textPassword"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/loginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etPwd"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:width="300dp"
+                android:background="@color/colorPrimaryDark"
+                android:text="@string/btnLogin_text"
+                android:textColor="@android:color/white" />
+
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/fbLoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loginBtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/googleLoginBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/fbLoginBtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/tvRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/googleLoginBtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:clickable="true"
+                android:text="@string/goToReg_text"
+                android:textColor="@color/colorClickableText" />
+
+            <TextView
+                android:id="@+id/tvTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvRegister"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="23dp"
+                android:text="TextView"
+                android:layout_marginBottom="40dp"/>
+        </RelativeLayout>
+    </ScrollView>

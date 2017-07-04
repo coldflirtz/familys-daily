@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.bluejack16_2.familysdaily.VerificationActivity"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/tvConf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <EditText
+        android:id="@+id/etConfCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvConf"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp"
+        android:ems="10"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/btnVerify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etConfCode"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:width="300dp"
+        android:text="@string/btnVerify_text"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:id="@+id/tvReSent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnVerify"
+        android:layout_marginTop="30dp"
+        android:text="TextView" />
+
+</RelativeLayout>
