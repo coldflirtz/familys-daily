@@ -24,4 +24,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--Nav bar-->
+    <string name="nav_home">Home</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_logout">Logout</string>
+    <string name="nav_other">Other</string>
+    <string name="nav_about_us">About Us</string>
+
 </resources>

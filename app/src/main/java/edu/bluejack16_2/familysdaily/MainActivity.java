@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment("Timeline", new TimelineFragment());
         viewPagerAdapter.addFragment("Member", new MemberFragment());
-        viewPager.setAdapter(viewPagerAdapter);;
+        viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 

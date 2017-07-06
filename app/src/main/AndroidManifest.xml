@@ -41,7 +41,6 @@
         </activity>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".VerificationActivity" />
-        <activity android:name=".MemberActivity"></activity>
     </application>
 
 </manifest>
