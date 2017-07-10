@@ -40,12 +40,53 @@
         android:layout_height="fill_parent"
         android:layout_below="@id/TabLayoutMain"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/fab_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
+        app:menu_fab_label="Choose an action"
+        app:menu_colorNormal="@color/colorAccent"
+        app:menu_colorPressed="@color/colorAccentDark"
+        app:menu_colorRipple="@color/colorAccentLight"
+        app:menu_showShadow="true"
+        app:menu_labels_colorNormal="#333333"
+        app:menu_labels_colorPressed="#444444"
+        app:menu_labels_colorRipple="#66FFFFFF"
+        app:menu_labels_showShadow="true"
+        app:menu_labels_maxLines="-1"
+        app:menu_labels_position="left"
+        app:menu_openDirection="up"
+        app:menu_shadowColor="#66000000"
+        app:menu_labels_ellipsize="end"
+        app:menu_labels_singleLine="true"
         android:layout_margin="16dp"
-        />
+        >
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_member"
+            app:fab_label="@string/add_member"
+            app:fab_size="mini"
+            />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_note"
+            app:fab_label="@string/add_note"
+            app:fab_size="mini"
+            />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fab_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_schedule"
+            app:fab_label="@string/add_schedule"
+            app:fab_size="mini"
+            />
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -13,6 +13,9 @@
     <string name="facebook_app_id">127165354540034</string>
     <string name="fb_login_protocol_scheme">fb127165354540034</string>
 
+    <!--googleLogin-->
+    <string name="google_web_client_id">620695282337-ji5m195rh7spqjd4s089lpmfemm8qa8a.apps.googleusercontent.com</string>
+
     <!--Register-->
     <string name="btnRegister_text">Register</string>
     <string name="etPwdConf_hint">Re-type Your Password</string>
@@ -20,11 +23,17 @@
     <string name="etLName_hint">Last Name</string>
     <string name="etPhone_hint">Phone</string>
     <string name="etDOB">Date of Birth</string>
-    <string name="btnVerify_text">Verify</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Add new data -->
+    <string name="addData">Add New Data</string>
+    <string name="btnAddNewSchedule">Add New Schedule</string>
+    <string name="btnAddNewMember">Add New Member</string>
+    <string name="btnAddNewNotes">Add New Notes</string>
 
+    <!-- Verification -->
+    <string name="verificationTitle">Verify your account</string>
+    <string name="btnVerify">Verify Now</string>
+    <string name="verificationResend">Send new verification code</string>
 
     <!--Nav bar-->
     <string name="nav_home">Home</string>
@@ -33,4 +42,11 @@
     <string name="nav_other">Other</string>
     <string name="nav_about_us">About Us</string>
 
+    <!--Add main menu-->
+    <string name="add_member">Add Member</string>
+    <string name="add_note">Add Note</string>
+    <string name="add_schedule">Add Schedule</string>
+
+
+    <string name="hello_blank_fragment">hello blank fragment</string>
 </resources>

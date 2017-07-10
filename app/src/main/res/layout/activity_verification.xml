@@ -14,8 +14,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
+        android:textColor="@android:color/white"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:text="@string/verificationTitle" />
 
     <EditText
         android:id="@+id/etConfCode"
@@ -24,8 +25,14 @@
         android:layout_below="@id/tvConf"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp"
-        android:ems="10"
-        android:inputType="number" />
+        android:ems="20"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:backgroundTint="@android:color/white"
+        android:width="80dp"
+        android:textAlignment="center"
+        android:maxLength="4"
+        android:inputType="number|textNoSuggestions|textVisiblePassword" />
 
     <Button
         android:id="@+id/btnVerify"
@@ -35,7 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:width="300dp"
-        android:text="@string/btnVerify_text"
+        android:text="@string/btnVerify"
         android:textColor="@android:color/white"
         android:background="@color/colorPrimaryDark"/>
 
@@ -46,6 +53,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/btnVerify"
         android:layout_marginTop="30dp"
-        android:text="TextView" />
+        android:textColor="@android:color/white"
+        android:text="@string/verificationResend" />
 
 </RelativeLayout>

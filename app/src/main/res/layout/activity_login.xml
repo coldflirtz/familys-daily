@@ -31,6 +31,8 @@
                 android:layout_marginTop="30dp"
                 android:ems="20"
                 android:hint="@string/etEmail_hint"
+                android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 android:inputType="textEmailAddress"
                 android:textColor="@android:color/white" />
 
@@ -42,6 +44,8 @@
                 android:layout_below="@+id/etEmail"
                 android:layout_marginTop="20dp"
                 android:ems="20"
+                android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 android:hint="@string/etPwd_hint"
                 android:inputType="textPassword"
                 android:textColor="@android:color/white" />
@@ -85,7 +89,7 @@
                 android:layout_marginTop="10dp"
                 android:clickable="true"
                 android:text="@string/goToReg_text"
-                android:textColor="@color/colorClickableText" />
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/tvTest"
@@ -94,6 +98,7 @@
                 android:layout_below="@+id/tvRegister"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="23dp"
+                android:textColor="@android:color/white"
                 android:text="TextView"
                 android:layout_marginBottom="40dp"/>
         </RelativeLayout>

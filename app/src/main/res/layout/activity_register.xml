@@ -2,7 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimary">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -10,7 +11,6 @@
         tools:context="edu.bluejack16_2.familysdaily.RegisterActivity"
         android:paddingLeft="30dp"
         android:paddingRight="30dp"
-        android:background="@color/colorPrimary"
         >
 
         <EditText
@@ -20,7 +20,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="30dp"
             android:ems="20"
-            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:backgroundTint="@android:color/white"
             android:hint="@string/etEmail_hint"
             android:inputType="textEmailAddress" />
 
@@ -31,6 +32,8 @@
             android:textColor="@android:color/white"
             android:layout_below="@id/etEmail"
             android:layout_marginTop="20dp"
+            android:textColorHint="@android:color/white"
+            android:backgroundTint="@android:color/white"
             android:ems="20"
             android:hint="@string/etPwd_hint"
             android:inputType="textPassword" />
@@ -42,6 +45,8 @@
             android:textColor="@android:color/white"
             android:layout_below="@id/etPwd"
             android:layout_marginTop="20dp"
+            android:textColorHint="@android:color/white"
+            android:backgroundTint="@android:color/white"
             android:ems="20"
             android:hint="@string/etPwdConf_hint"
             android:inputType="textPassword" />
@@ -60,13 +65,15 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/etFName_hint"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white" />
+                android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/white" />
 
             <EditText
                 android:id="@+id/etLName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/white"
+                android:backgroundTint="@android:color/white"
                 android:layout_toEndOf="@id/etFName"
                 android:layout_weight="1"
                 android:hint="@string/etLName_hint"
@@ -78,25 +85,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/llNameWrapper"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@android:color/white"
+            />
 
         <EditText
             android:id="@+id/etDOB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:backgroundTint="@android:color/white"
             android:ems="16"
             android:focusable="false"
             android:inputType="date"
             android:hint="@string/etDOB"
             android:layout_marginTop="20dp"
-            android:layout_below="@id/spGender" />
+            android:layout_below="@id/spGender"
+            android:textColor="@android:color/white"/>
 
         <EditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:backgroundTint="@android:color/white"
             android:layout_below="@id/etDOB"
             android:layout_marginTop="20dp"
             android:ems="20"
