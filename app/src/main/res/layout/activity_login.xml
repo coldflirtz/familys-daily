@@ -10,6 +10,7 @@
             android:paddingLeft="30dp"
             android:paddingRight="30dp"
             tools:context="edu.bluejack16_2.familysdaily.LoginActivity"
+            android:layout_gravity="center"
             >
 
             <TextView

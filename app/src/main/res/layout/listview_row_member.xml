@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bg">
+
+    <ImageView
+        android:id="@+id/ivUserPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        android:minHeight="80dp"
+        android:minWidth="80dp"
+        android:src="@drawable/ic_add_member"/>
+
+    <RelativeLayout
+        android:id="@+id/userText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/ivUserPicture">
+
+        <TextView
+            android:id="@+id/tvUserDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Detail"/>
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5h ago"
+            android:gravity="end"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/userAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/ivUserPicture"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/userText"
+        >
+        <Button
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"
+            android:text="Confirm" />
+        <Button
+            android:id="@+id/btnReject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_red_dark"
+            android:textColor="@android:color/white"
+            android:layout_toRightOf="@id/btnConfirm"
+            android:layout_marginLeft="50dp"
+            android:text="Reject"/>
+    </RelativeLayout>
+
+</RelativeLayout>

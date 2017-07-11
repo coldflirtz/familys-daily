@@ -47,6 +47,29 @@
     <string name="add_note">Add Note</string>
     <string name="add_schedule">Add Schedule</string>
 
+    <!--Add Member-->
+    <string name="etAddMember_hint">Enter your families email</string>
+
+    <!--Create Join Group-->
+    <string name="rbCreateGroup">Create Group</string>
+    <string name="rbJoinGroup">Join Group</string>
+    <string name="submit">Submit</string>
+    <string name="create">Create</string>
+    <string name="join">Join</string>
+    <string name="etCreateGroup_hint">Enter group name to create</string>
+    <string name="etJoinGroup_hint">Enter group code to join</string>
+    <string name="etDefaultGroup_hint">Select option</string>
+    <string name="label_CreateJoinGroup">Create / Join Group</string>
+
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <string name="etScheduleDate">Schedule Date</string>
+    <string name="etExpireDate">Expire Date</string>
+    <string name="btnSelectPicture">Select Picture</string>
+    <string name="etProductName">Product Name</string>
+    <string name="etScheduleDetail">Schedule Detail</string>
+
 
     <string name="hello_blank_fragment">hello blank fragment</string>
 </resources>
