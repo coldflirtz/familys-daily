@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    tools:context="edu.bluejack16_2.familysdaily.AddNotesActivity">
+
+    <Spinner
+        android:id="@+id/spinnerAddNotesOption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"></Spinner>
+
+    <EditText
+        android:id="@+id/etAddNotesNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerAddNotesOption"
+        android:layout_marginTop="20dp"
+        android:hint="@string/etAddNotesNote"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnAddNotesSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAddNotesNote"
+        android:text="@string/submit"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"/>
+
+    <EditText
+        android:id="@+id/etAddNotesExpiredDateName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerAddNotesOption"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:hint="@string/etAddNotesName"/>
+
+    <EditText
+        android:id="@+id/etAddNotesExpiredDateExpired"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:layout_below="@id/etAddNotesExpiredDateName"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:hint="@string/etAddNotesExpired"/>
+
+    <TextView
+        android:id="@+id/tvAddNotesOr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etAddNotesExpiredDateExpired"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:textSize="16dp"
+        android:visibility="gone"
+        android:text="@string/etAddNotesOr"/>
+
+    <Button
+        android:id="@+id/btnAddNotesTakePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAddNotesExpiredDateExpired"
+        android:text="@string/btnAddNotesTakePhoto"
+        android:layout_marginLeft="8dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:textSize="10dp"
+        android:minWidth="70dp"
+        android:minHeight="25dp"
+        android:visibility="gone"
+        android:layout_toRightOf="@id/tvAddNotesOr"/>
+
+    <Button
+        android:id="@+id/btnAddNotesExpiredSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvAddNotesOr"
+        android:text="@string/submit"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+
+
+</RelativeLayout>

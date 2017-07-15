@@ -32,7 +32,7 @@
         android:backgroundTint="@android:color/white"
         android:width="80dp"
         android:textAlignment="center"
-        android:maxLength="4"
+        android:maxLength="6"
         android:inputType="number|textNoSuggestions|textVisiblePassword" />
 
     <Button

@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import edu.bluejack16_2.familysdaily.R;
 
@@ -40,7 +41,21 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         String date = dayOfMonth+"/"+month+"/"+year;
-        EditText etDOB = (EditText) getActivity().findViewById(R.id.etDOB);
-        etDOB.setText(date);
+        try {
+            EditText etDOB = (EditText) getActivity().findViewById(R.id.etDOB);
+            etDOB.setText(date);
+        }catch(Exception e){
+            try {
+                EditText etDOB = (EditText) getActivity().findViewById(R.id.etAddNotesExpiredDateExpired);
+                etDOB.setText(date);
+            }catch(Exception e2){
+                try {
+                    EditText etDOB = (EditText) getActivity().findViewById(R.id.etAddScheduleDate);
+                    etDOB.setText(date);
+                }catch(Exception e3){
+                    Toast.makeText(getContext(), "Failed!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }

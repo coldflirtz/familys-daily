@@ -10,13 +10,26 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import edu.bluejack16_2.familysdaily.models.User;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
+    TextView tvUserName;
+    ImageView ivUserImage, ivHeaderBG;
+    FirebaseAuth firebaseAuth;
+    User currUser;
+    View navHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         fillViewPagerAndTab();
         onFABClicked();
         onNavigationClicked();
+        loadCurrentUserData();
     }
 
     private void init(){
@@ -46,8 +65,32 @@ public class MainActivity extends AppCompatActivity {
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         toolbar = (Toolbar) findViewById(R.id.ToolbarMain);
+        navHeader = navigationView.getHeaderView(0);
+        tvUserName = (TextView) navHeader.findViewById(R.id.user_name);
+        ivUserImage = (ImageView) navHeader.findViewById(R.id.user_img);
+        ivHeaderBG = (ImageView) navHeader.findViewById(R.id.img_header_bg);
+        firebaseAuth = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.app_name);
+    }
+
+    private void loadCurrentUserData(){
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        DatabaseReference mDB = FirebaseDatabase.getInstance().getReference("Users");
+        mDB.orderByChild("email").equalTo(firebaseUser.getEmail()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()) {
+                    currUser = child.getValue(User.class);
+                }
+                loadNavHeader(currUser.getfName() + " " + currUser.getlName(), currUser.getPpUrl());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void fillViewPagerAndTab() {
@@ -56,6 +99,19 @@ public class MainActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment("Member", new MemberFragment());
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    private void loadNavHeader(String name, String userImgUrl){
+        tvUserName.setText(name);
+
+        Glide.with(this).load(R.drawable.nav_header_bg)
+                .crossFade().diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(ivHeaderBG);
+        Glide.with(this).load(userImgUrl)
+                .crossFade().thumbnail(0.5f)
+                .bitmapTransform(new CircleTransform(this))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(ivUserImage);
     }
 
     private void onNavigationClicked(){
@@ -119,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //redirect to main menu
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class); //belum di buat
+                Intent intent = new Intent(getApplicationContext(), AddNotesActivity.class); //belum di buat
                 startActivity(intent);
             }
         });
@@ -131,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                 //redirect to main menu
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class); //belum di buat
+                Intent intent = new Intent(getApplicationContext(), AddScheduleActivity.class); //belum di buat
                 startActivity(intent);
             }
         });

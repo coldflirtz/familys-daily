@@ -69,6 +69,14 @@
     <string name="btnSelectPicture">Select Picture</string>
     <string name="etProductName">Product Name</string>
     <string name="etScheduleDetail">Schedule Detail</string>
+    <string name="tvAddLocation">Add Location (optional)</string>
+    <string name="label_AddSchedule">Add New Schedule</string>
+
+    <string name="etAddNotesNote">Notes</string>
+    <string name="etAddNotesName">Item Name</string>
+    <string name="etAddNotesExpired">Expired Date</string>
+    <string name="etAddNotesOr">or</string>
+    <string name="btnAddNotesTakePhoto">Take Photo</string>
 
 
     <string name="hello_blank_fragment">hello blank fragment</string>

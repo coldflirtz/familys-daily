@@ -1,17 +1,25 @@
 package edu.bluejack16_2.familysdaily;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.Random;
+
+import edu.bluejack16_2.familysdaily.models.User;
+import edu.bluejack16_2.familysdaily.models.UserToVerify;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -33,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnReg = (Button)findViewById(R.id.btnReg);
         setGenderSpinner();
         showDPPopup();
+        register();
         onRegisterClicked();
     }
 
@@ -76,10 +85,28 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void register(){
-        Intent intent = new Intent(getApplicationContext(),VerificationActivity.class);
-        //intent.putExtra("tag",value);
-        startActivity(intent);
+        Intent currIntent = getIntent();
+        if(currIntent.getExtras()!=null) {
+            Bundle extras = currIntent.getExtras();
+            addUser(extras);
+        }
     }
 
+    private void addUser(Bundle extras){
+        Random ran = new Random();
+        String verNumber = Integer.toString(100000+ran.nextInt(900000));
+        Toast.makeText(this, "Registering...", Toast.LENGTH_SHORT).show();
+        extras.putString("verNumber", verNumber);
+        UserToVerify userToVerify = new UserToVerify(extras);
+        DatabaseReference mDB = FirebaseDatabase.getInstance().getReference("UserToVerify");
+        mDB.push().setValue(userToVerify);
+        //kirim email
+        goToVerification(extras);
+    }
+
+    private void goToVerification(Bundle extras){
+        Intent intent = new Intent(getApplicationContext(), VerificationActivity.class);
+        startActivity(intent);
+    }
 
 }
