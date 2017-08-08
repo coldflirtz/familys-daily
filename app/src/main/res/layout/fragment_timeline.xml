@@ -1,14 +1,86 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.bluejack16_2.familysdaily.TimelineFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    tools:context="edu.bluejack16_2.familysdaily.TimelineFragment"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal|center_vertical"
-        android:text="timeline" />
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/notesTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:text="Notes"
+                android:textColor="@android:color/white"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"/>
+            <ListView
+                android:id="@+id/lvNotes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="10dp"
+                android:clipToPadding="false" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="1">
+        <TextView
+            android:id="@+id/scheduleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="Schedule"
+            android:textColor="@android:color/white"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp" />
+        <ListView
+            android:id="@+id/lvSchedules"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            android:padding="10dp"
+            android:clipToPadding="false" />
+            </LinearLayout>
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/expiredTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:text="Expired"
+            android:textColor="@android:color/white"
+            android:paddingLeft="15dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="5dp" />
+        <ListView
+            android:id="@+id/lvExpired"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            android:padding="10dp"
+            android:clipToPadding="false" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

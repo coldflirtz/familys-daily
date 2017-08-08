@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlMember"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bg"
+    android:descendantFocusability="blocksDescendants">
+
+    <TextView
+        android:id="@+id/tvItemType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Notes"
+        android:textAlignment="textEnd"
+        android:textStyle="bold" />
+
+    <View
+        android:id="@+id/lineSeparator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@android:color/black"
+        android:layout_below="@id/tvItemType"
+        android:layout_marginTop="3dp"/>
+
+    <TextView
+        android:id="@+id/tvNoteDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lineSeparator"
+        android:layout_marginTop="5dp"
+        android:maxLines="5"
+        android:lines="2"
+        android:text="abasdf"
+        />
+
+</RelativeLayout>

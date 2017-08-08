@@ -4,6 +4,24 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <service android:name=".FCMInitializationService">
+        <intent-filter>
+            <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+        </intent-filter>
+    </service>
+    <service android:name=".FCMCallbackService">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
+    </service>
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,6 +32,20 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <!--
+     Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/bg_circle" />
+        <!--
+             Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more.
+        -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
 
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -48,8 +80,50 @@
         <activity
             android:name=".AddScheduleActivity"
             android:label="@string/label_AddSchedule"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.DarkActionBar" />
-        <activity android:name=".AddNotesActivity"></activity>
+        <activity
+            android:name=".AddNotesActivity"
+            android:label="@string/label_AddNote"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        />
+        <activity
+            android:name=".ModifyNoteActivity"
+            android:label="@string/label_ModifyNote"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity
+            android:name=".ModifyScheduleActivity"
+            android:label="@string/label_ModifySchedule"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.DarkActionBar" />
+        <activity
+            android:name=".ModifyExpiredActivity"
+            android:label="@string/label_ModifyExpired"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.DarkActionBar"/>
     </application>
 
 </manifest>

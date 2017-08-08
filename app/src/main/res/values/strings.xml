@@ -56,6 +56,8 @@
     <string name="submit">Submit</string>
     <string name="create">Create</string>
     <string name="join">Join</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
     <string name="etCreateGroup_hint">Enter group name to create</string>
     <string name="etJoinGroup_hint">Enter group code to join</string>
     <string name="etDefaultGroup_hint">Select option</string>
@@ -71,13 +73,20 @@
     <string name="etScheduleDetail">Schedule Detail</string>
     <string name="tvAddLocation">Add Location (optional)</string>
     <string name="label_AddSchedule">Add New Schedule</string>
+    <string name="label_ModifySchedule">Modify Schedule</string>
+
 
     <string name="etAddNotesNote">Notes</string>
     <string name="etAddNotesName">Item Name</string>
     <string name="etAddNotesExpired">Expired Date</string>
     <string name="etAddNotesOr">or</string>
     <string name="btnAddNotesTakePhoto">Take Photo</string>
+    <string name="label_AddNote">Add New Note</string>
+    <string name="label_ModifyNote">Modify Note</string>
+    <string name="label_ModifyExpired">Modify Expired</string>
+    <string name="browse">Browse</string>
 
 
     <string name="hello_blank_fragment">hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

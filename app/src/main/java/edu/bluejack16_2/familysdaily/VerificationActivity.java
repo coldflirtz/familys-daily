@@ -78,10 +78,5 @@ public class VerificationActivity extends AppCompatActivity {
         });
     }
 
-    private void goToMain(){
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
-    }
-
 
 }

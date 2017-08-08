@@ -1,9 +1,11 @@
 package edu.bluejack16_2.familysdaily;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,7 +22,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.facebook.login.LoginManager;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,18 +47,29 @@ public class MainActivity extends AppCompatActivity {
     TextView tvUserName;
     ImageView ivUserImage, ivHeaderBG;
     FirebaseAuth firebaseAuth;
-    User currUser;
+    public static User currUser;
     View navHeader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        init();
-        fillViewPagerAndTab();
-        onFABClicked();
-        onNavigationClicked();
-        loadCurrentUserData();
+        if(isGooglePlayServicesAvailable(MainActivity.this)) {
+            init();
+            fillViewPagerAndTab();
+            onFABClicked();
+            onNavigationClicked();
+            loadCurrentUserData();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isGooglePlayServicesAvailable(MainActivity.this)) {
+            Toast.makeText(this, "Google play service is not available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void init(){
@@ -72,6 +88,18 @@ public class MainActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(R.string.app_name);
+    }
+
+    public boolean isGooglePlayServicesAvailable(Activity activity){
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+        if(status != ConnectionResult.SUCCESS){
+            if(googleApiAvailability.isUserResolvableError(status)){
+                googleApiAvailability.getErrorDialog(activity, status, 2404).show();
+            }
+            return false;
+        }
+        return true;
     }
 
     private void loadCurrentUserData(){
@@ -127,7 +155,11 @@ public class MainActivity extends AppCompatActivity {
                         //apa
                         break;
                     case R.id.nav_logout:
-                        //apa
+                        Toast.makeText(MainActivity.this, "Sign out", Toast.LENGTH_SHORT).show();
+                        FirebaseAuth.getInstance().signOut();
+                        LoginManager.getInstance().logOut();
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        NavUtils.navigateUpTo(MainActivity.this, intent);
                         break;
                     case R.id.nav_about_us:
                         //apa

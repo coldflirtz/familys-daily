@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlMember"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_bg">
+    android:background="@drawable/rounded_bg"
+    android:descendantFocusability="blocksDescendants">
 
     <ImageView
         android:id="@+id/ivUserPicture"
@@ -21,7 +23,7 @@
         android:layout_toRightOf="@id/ivUserPicture">
 
         <TextView
-            android:id="@+id/tvUserDetail"
+            android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="User Detail"/>
@@ -35,7 +37,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/userAction"
+        android:id="@+id/memberActionBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/ivUserPicture"

@@ -11,13 +11,30 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import edu.bluejack16_2.familysdaily.models.Group;
+import edu.bluejack16_2.familysdaily.models.Note;
+import edu.bluejack16_2.familysdaily.models.Product;
+import edu.bluejack16_2.familysdaily.models.User;
 
 public class AddNotesActivity extends AppCompatActivity {
 
     Spinner option;
     EditText notes, expiredName, expiredDate;
     TextView or;
-    Button btnSubmit, btnTakePhoto, btnSubmitExpired;
+    Button btnSubmit, btnTakePhoto, btnSubmitExpired, btnBrowsePhoto;
+    FirebaseDatabase mDB;
+    FirebaseAuth firebaseAuth;
+    Boolean isNotes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +53,9 @@ public class AddNotesActivity extends AppCompatActivity {
         btnSubmit = (Button) findViewById(R.id.btnAddNotesSubmit);
         btnTakePhoto = (Button) findViewById(R.id.btnAddNotesTakePhoto);
         btnSubmitExpired = (Button) findViewById(R.id.btnAddNotesExpiredSubmit);
-
+        btnBrowsePhoto = (Button) findViewById(R.id.btnAddNotesBrowsePhoto);
+        mDB = FirebaseDatabase.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
         setOptionSpinner();
     }
 
@@ -59,8 +78,10 @@ public class AddNotesActivity extends AppCompatActivity {
                 if(parent.equals(option)){
                     if(option.getSelectedItem().equals("Notes")){
                         setVisibility(View.VISIBLE, View.GONE);
+                        isNotes = true;
                     }else if(option.getSelectedItem().equals("Expired Date")){
                         setVisibility(View.GONE, View.VISIBLE);
+                        isNotes = false;
                     }
                 }
             }
@@ -89,6 +110,7 @@ public class AddNotesActivity extends AppCompatActivity {
         expiredName.setVisibility(expired);
         expiredDate.setVisibility(expired);
         or.setVisibility(expired);
+        btnBrowsePhoto.setVisibility(expired);
         btnTakePhoto.setVisibility(expired);
         btnSubmitExpired.setVisibility(expired);
     }
@@ -98,8 +120,11 @@ public class AddNotesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //add to db
-
-
+                if(isNotes) {
+                    addNote();
+                }else{
+                    addExpired();
+                }
 
                 //redirect to main menu
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
@@ -108,13 +133,47 @@ public class AddNotesActivity extends AppCompatActivity {
         });
     }
 
+    private void addExpired(){
+        //create new group node
+        final DatabaseReference expiredRef = mDB.getReference("ExpiredDate");
+        //productName, productExpiredDate, productPrice
+        Bundle bundleNote = new Bundle();
+        bundleNote.putString("productName", expiredName.getText().toString());
+        bundleNote.putString("productExpiredDate", expiredDate.getText().toString());
+        //Ini belum ada price soalnya belum bisa foto
+        bundleNote.putString("productPrice", "0");
+
+        Product product = new Product(bundleNote);
+        String currExpiredKey;
+        currExpiredKey = expiredRef.push().getKey();
+        expiredRef.child(LoginActivity.currGroupID).child(LoginActivity.currUserID).child(currExpiredKey).setValue(product);
+    }
+
+    private void addNote(){
+
+        //create new group node
+        DatabaseReference noteRef = mDB.getReference("Notes");
+
+        Long time = System.currentTimeMillis();
+
+        Bundle bundleNote = new Bundle();
+        bundleNote.putString("notesDetail", notes.getText().toString());
+        bundleNote.putString("notesTime", time.toString());
+
+        Note note = new Note(bundleNote);
+        String currNoteKey;
+        currNoteKey = noteRef.push().getKey();
+        noteRef.child(LoginActivity.currUserID).child(currNoteKey).setValue(note);
+
+    }
+
     private void onExpiredSubmitClicked(){
         btnSubmitExpired.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //add to db
 
-
+                addExpired();
 
                 //redirect to main menu
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);

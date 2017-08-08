@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,38 +11,78 @@
         android:id="@+id/option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp">
-        <RadioButton
-            android:id="@+id/rbCreateGroup"
+        android:layout_marginTop="80dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <RadioGroup
+            android:id="@+id/rbGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rbCreateGroup"/>
-        <RadioButton
-            android:id="@+id/rbJoinGroup"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rbCreateGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rbCreateGroup"/>
+            <RadioButton
+                android:id="@+id/rbJoinGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/rbJoinGroup"/>
+        </RadioGroup>
+        <EditText
+            android:id="@+id/etGroupName"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rbGroup"
+            android:hint="@string/etDefaultGroup_hint"/>
+        <Button
+            android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@id/rbCreateGroup"
-            android:text="@string/rbJoinGroup"/>
+            android:layout_below="@id/etGroupName"
+            android:layout_marginTop="20dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/submit"
+            android:textColor="@android:color/white"
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/etGroupName"
-        android:layout_marginTop="10dp"
+
+
+    <RelativeLayout
+        android:id="@+id/foundGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/option"
-        android:hint="@string/etDefaultGroup_hint"/>
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etGroupName"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorPrimary"
-        android:text="@string/submit"
-        android:textColor="@android:color/white"
-        android:layout_centerHorizontal="true"/>
+        android:layout_below="@id/option"
+        android:layout_marginTop="50dp"
+        android:visibility="invisible">
+        <ImageView
+            android:id="@+id/ivGroupImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/tvGroupName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivGroupImage"
+            android:text="Group Name"
+            android:layout_centerHorizontal="true"/>
+        <Button
+            android:id="@+id/btnJoin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvGroupName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Join"
+            android:background="@color/colorPrimary"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
 
 </RelativeLayout>

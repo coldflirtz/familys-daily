@@ -1,5 +1,6 @@
 package edu.bluejack16_2.familysdaily;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +17,6 @@ import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
-import com.facebook.internal.ImageRequest;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -25,23 +25,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
@@ -50,9 +48,6 @@ import org.json.JSONObject;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import edu.bluejack16_2.familysdaily.models.Group;
-import edu.bluejack16_2.familysdaily.models.User;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener{
 
@@ -63,18 +58,29 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private FirebaseAuth firebaseAuth;
     private GoogleApiClient googleApiClient;
     private Bundle extras;
-    private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
+    private GoogleSignInResult result;
+    public static String currUserID, currGroupID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        init();
-        if(AccessToken.getCurrentAccessToken()!=null){
-            tvTest.setText("Access Token : "+AccessToken.getCurrentAccessToken().getToken()+"\nToken UID Cons : "+AccessToken.getCurrentAccessToken().getUserId());
+        if(isGooglePlayServicesAvailable(LoginActivity.this)) {
+            init();
+            if (AccessToken.getCurrentAccessToken() != null) {
+                tvTest.setText("Access Token : " + AccessToken.getCurrentAccessToken().getToken() + "\nToken UID Cons : " + AccessToken.getCurrentAccessToken().getUserId());
+            }
+            goToRegister();
         }
-        goToRegister();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!isGooglePlayServicesAvailable(LoginActivity.this)) {
+            Toast.makeText(this, "Google play service is not available", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void init(){
@@ -90,7 +96,19 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         fbLogin();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.google_web_client_id)).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build();
-        Toast.makeText(this, "init success", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "init success", Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean isGooglePlayServicesAvailable(Activity activity){
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int status = googleApiAvailability.isGooglePlayServicesAvailable(activity);
+        if(status != ConnectionResult.SUCCESS){
+            if(googleApiAvailability.isUserResolvableError(status)){
+                googleApiAvailability.getErrorDialog(activity, status, 2404).show();
+            }
+            return false;
+        }
+        return true;
     }
 
     private void fbLogin(){
@@ -99,6 +117,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onSuccess(LoginResult loginResult) {
                 //tvTest.setText("Access Token : "+loginResult.getAccessToken().getToken()+"\nToken UID : "+ loginResult.getAccessToken().getUserId()+"\nToken UID Cons : "+AccessToken.getCurrentAccessToken().getUserId());
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                Toast.makeText(LoginActivity.this, "FBLOGIN", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -135,37 +154,22 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         authenticate(currentUser);
     }
 
-    private void updateUI(FirebaseUser user){
-        if(user != null){
-            tvTest.setText(user.getDisplayName()+"\n"+user.getUid());
-            /*String userProvider = user.getProviderId();
-            if(userProvider == "facebook.com") {
-                for(UserInfo userInfo : user.getProviderData()){
-                    GraphRequest request = GraphRequest.newMeRequest();
-                }
-
-            }else if(userProvider == "google.com"){
-
-            }*/
-
-        }
-        else{
-            tvTest.setText(null);
-        }
-    }
-
     private void handleFacebookAccessToken(final AccessToken token){
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        //Toast.makeText(this, "Handle FB LOGIN", Toast.LENGTH_SHORT).show();
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                Toast.makeText(getApplicationContext(), "FBLogin success!"+task.toString(), Toast.LENGTH_SHORT).show();
                 if(task.isSuccessful()){
+                    //Toast.makeText(getApplicationContext(), "FBLogin success!"+task.toString(), Toast.LENGTH_SHORT).show();
                     FirebaseUser user = firebaseAuth.getCurrentUser();
                     authenticate(user);
                 }
                 else{
                     authenticate(null);
+                    tvTest.setText(task.getException().getMessage());
+                    LoginManager.getInstance().logOut();
+                    //Toast.makeText(LoginActivity.this, "FBLogin failed " + task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -176,7 +180,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RC_SIGN_IN){
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if(result.isSuccess()){
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
@@ -227,17 +231,32 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 e.printStackTrace();
             }
         }
-
-
         /*extras.putString("email", user.getEmail());
         extras.putString("fName", user.getDisplayName().substring(0, user.getDisplayName().indexOf(" ")-1));
         extras.putString("lName", user.getDisplayName().substring(user.getDisplayName().indexOf(" ")+1, user.getDisplayName().length()));
         extras.putString("password", null);*/
     }
 
+    
+
+    private void importGoogleUserData(){
+        GoogleSignInAccount account = result.getSignInAccount();
+        if(account.getIdToken()!=null){
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+            extras.putString("email", account.getEmail());
+            extras.putString("fName", account.getGivenName());
+            extras.putString("lName", account.getFamilyName());
+            extras.putString("gender", "male");
+            extras.putString("dob", df.format(new Date()));
+            extras.putString("ppUrl", account.getPhotoUrl().toString());
+            extras.putString("pwd", account.getIdToken());
+        }
+    }
+
     private void authenticate(final FirebaseUser user){
         if(user != null){
-            Toast.makeText(this, "auth "+ user.getEmail(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Loading...", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "auth "+ user.getEmail() + user.getProviders().get(0), Toast.LENGTH_SHORT).show();
             DatabaseReference mDB = FirebaseDatabase.getInstance().getReference("Users");
             mDB.orderByChild("email").equalTo(user.getEmail())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -245,9 +264,38 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Log.d("mDB",dataSnapshot.toString());
                         if(dataSnapshot.exists()){
-                            Toast.makeText(LoginActivity.this, "User Found", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
+                            for(DataSnapshot child : dataSnapshot.getChildren()) {
+                                currUserID = child.getKey();
+                                //Toast.makeText(LoginActivity.this, "User Found", Toast.LENGTH_SHORT).show();
+                                DatabaseReference membersRef = FirebaseDatabase.getInstance().getReference("Members");
+                                membersRef.orderByKey().addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot child2 : dataSnapshot.getChildren()) {
+                                            for (DataSnapshot subChild2 : child2.getChildren()) {
+                                                if (subChild2.getKey().equals(LoginActivity.currUserID) && LoginActivity.currGroupID.equals("")) {
+                                                    currGroupID = child2.getKey();
+                                                    FCMInitializationService fcmInitializationService = new FCMInitializationService();
+                                                    fcmInitializationService.onTokenRefresh();
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                                else{
+                                                    currGroupID="";
+                                                    FCMInitializationService fcmInitializationService = new FCMInitializationService();
+                                                    fcmInitializationService.onTokenRefresh();
+                                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                    startActivity(intent);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
                         }
                         else{
                             Toast.makeText(LoginActivity.this, "User Not Exist on Users table", Toast.LENGTH_SHORT).show();
@@ -256,14 +304,18 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        Toast.makeText(LoginActivity.this, "Canceled", Toast.LENGTH_SHORT).show();
                     }
                 });
 
         }
     }
 
-    private void checkRegisteredNotVerified(FirebaseUser user){
+    private void loadUserCurrGroup(){
+
+    }
+
+    private void checkRegisteredNotVerified(final FirebaseUser user){
         DatabaseReference mDB = FirebaseDatabase.getInstance().getReference("UserToVerify");
         mDB.orderByChild("email").equalTo(user.getEmail())
                 .addListenerForSingleValueEvent(new ValueEventListener() {
@@ -276,7 +328,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             startActivity(intent);
                         }
                         else{
-                            importFBUserData();
+                            if(user.getProviders().get(0).equals("facebook.com")) {
+                                importFBUserData();
+                            }
+                            else if(user.getProviders().get(0).equals("google.com")) {
+                                importGoogleUserData();
+                            }
                             Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                             intent.putExtras(extras);
                             startActivity(intent);
@@ -297,6 +354,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     FirebaseUser user = firebaseAuth.getCurrentUser();
+                    importGoogleUserData();
                     authenticate(user);
                 }
                 else{
